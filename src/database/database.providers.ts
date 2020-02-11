@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { User } from "../users/user.entity";
 import { Author } from "../author/author.entity";
 import envConfig from "../environment.config";
+import { Book } from "../book/book.entity";
 
 export const databaseProviders = [
   {
@@ -19,6 +20,7 @@ export const databaseProviders = [
           raw: true
         }
       });
+      sequelize.addModels([Book]);
       sequelize.addModels([Author]);
       sequelize.addModels([User]);
       await sequelize.sync();

@@ -1,4 +1,5 @@
 export class DatabaseConstants {
   static USERS_REPOSITORY = "USERS_REPOSITORY";
   static AUTHORS_REPOSITORY = "AUTHORS_REPOSITORY";
+  static BOOKS_REPOSITORY = "BOOKS_REPOSITORY";
 }
