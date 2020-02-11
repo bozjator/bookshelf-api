@@ -15,7 +15,7 @@ export class Author extends Model<Author> {
   firstName: string;
 
   @ApiProperty()
-  @AllowNull(false)
+  @AllowNull(true)
   @Column
   middleName: string;
 
@@ -25,17 +25,17 @@ export class Author extends Model<Author> {
   lastName: string;
 
   @ApiProperty({ example: "1967-01-28" })
-  @AllowNull(false)
+  @AllowNull(true)
   @Column(DataType.DATEONLY)
   bornDate: Date;
 
   @ApiProperty({ example: "2020-01-28" })
-  @AllowNull(false)
+  @AllowNull(true)
   @Column(DataType.DATEONLY)
   diedDate: Date;
 
   @ApiProperty()
-  @AllowNull(false)
+  @AllowNull(true)
   @Column
   shortInfo: string;
 }
