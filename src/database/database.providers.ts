@@ -1,8 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import { User } from "../users/user.entity";
 import { Author } from "../author/author.entity";
-import envConfig from "../environment.config";
 import { Book } from "../book/book.entity";
+import { BookAuthor } from "../entities/book-author.entity";
+import envConfig from "../environment.config";
 
 export const databaseProviders = [
   {
@@ -17,12 +18,10 @@ export const databaseProviders = [
         database: envConfig.db_name,
         query: {
           // Setting raw to true, Sequelize will not return DAO objects, but will return raw model objects.
-          raw: true
+          // raw: true // We can not use this if we want to user include (e.g. include author books)
         }
       });
-      sequelize.addModels([Book]);
-      sequelize.addModels([Author]);
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Author, Book, BookAuthor]);
       await sequelize.sync();
       // To recreate database tables, uncomment this.
       // await sequelize.sync({ force: true }); // Force set to true, will drop all tables and create new ones.

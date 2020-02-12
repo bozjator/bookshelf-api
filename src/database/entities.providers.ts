@@ -2,6 +2,7 @@ import { DatabaseConstants } from "./database-constants";
 import { User } from "../users/user.entity";
 import { Author } from "../author/author.entity";
 import { Book } from "../book/book.entity";
+import { BookAuthor } from "../entities/book-author.entity";
 
 export const EntitiesProviders_Users = [
   {
@@ -21,5 +22,12 @@ export const EntitiesProviders_Books = [
   {
     provide: DatabaseConstants.BOOKS_REPOSITORY,
     useValue: Book
+  }
+];
+
+export const EntitiesProviders_BooksAuthors = [
+  {
+    provide: DatabaseConstants.BOOKSAUTHORS_REPOSITORY,
+    useValue: BookAuthor
   }
 ];

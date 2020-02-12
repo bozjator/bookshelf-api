@@ -3,9 +3,12 @@ import {
   Column,
   Model,
   AllowNull,
-  DataType
+  DataType,
+  BelongsToMany
 } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
+import { Author } from "../author/author.entity";
+import { BookAuthor } from "../entities/book-author.entity";
 
 @Table
 export class Book extends Model<Book> {
@@ -43,4 +46,7 @@ export class Book extends Model<Book> {
   @AllowNull(false)
   @Column
   genre: string;
+
+  @BelongsToMany(() => Author, () => BookAuthor)
+  authors: Array<Author & { BookAuthor: BookAuthor }>;
 }

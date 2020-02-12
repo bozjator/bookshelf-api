@@ -32,6 +32,12 @@ export class AuthorsController {
     return this.authorsService.getOne(authorId);
   }
 
+  @ApiParam({ name: "authorId" })
+  @Get("with-books/:authorId")
+  async getOneWithBooks(@Param("authorId") authorId: number) {
+    return this.authorsService.getOneWithBooks(authorId);
+  }
+
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: AuthorCreated
@@ -49,5 +55,18 @@ export class AuthorsController {
   @Patch(":authorId")
   async update(@Param("authorId") authorId: number, @Body() author: Author) {
     return this.authorsService.update(authorId, author);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.CREATED
+  })
+  @ApiParam({ name: "authorId" })
+  @ApiParam({ name: "bookId" })
+  @Post("assign-book/:authorId/:bookId")
+  async assignBookToAuthor(
+    @Param("authorId") authorId: number,
+    @Param("bookId") bookId: number
+  ) {
+    return this.authorsService.assignBookToAuthor(authorId, bookId);
   }
 }
