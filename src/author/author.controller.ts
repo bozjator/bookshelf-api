@@ -8,7 +8,13 @@ import {
   Patch,
   Param
 } from "@nestjs/common";
-import { ApiTags, ApiBearerAuth, ApiResponse, ApiParam } from "@nestjs/swagger";
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiParam,
+  ApiOperation
+} from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthorsService } from "./author.service";
 import { Author } from "./author.entity";
@@ -21,28 +27,33 @@ import { AuthorCreated } from "./dtos/AuthorCreated.dto";
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
+  @ApiOperation({ summary: "Get all authors without books." })
   @Get()
   async getAll() {
     return this.authorsService.getAll();
   }
 
+  @ApiOperation({ summary: "Get all authors with books." })
   @Get("with-books")
   async getAllWithBooks() {
     return this.authorsService.getAllWithBooks();
   }
 
+  @ApiOperation({ summary: "Get the author, without books, by author id." })
   @ApiParam({ name: "authorId" })
   @Get(":authorId")
   async getOne(@Param("authorId") authorId: number) {
     return this.authorsService.getOne(authorId);
   }
 
+  @ApiOperation({ summary: "Get the author, with books, by author id." })
   @ApiParam({ name: "authorId" })
   @Get("with-books/:authorId")
   async getOneWithBooks(@Param("authorId") authorId: number) {
     return this.authorsService.getOneWithBooks(authorId);
   }
 
+  @ApiOperation({ summary: "Create new author." })
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: AuthorCreated
@@ -52,6 +63,7 @@ export class AuthorsController {
     return this.authorsService.create(author);
   }
 
+  @ApiOperation({ summary: "Update properties of the author." })
   @ApiResponse({
     status: HttpStatus.OK,
     description: "The author was successfuly updated."
@@ -62,6 +74,7 @@ export class AuthorsController {
     return this.authorsService.update(authorId, author);
   }
 
+  @ApiOperation({ summary: "Assign the book to the author." })
   @ApiResponse({
     status: HttpStatus.CREATED
   })
