@@ -2,6 +2,7 @@ import { Injectable, Inject } from "@nestjs/common";
 import { DatabaseConstants } from "../database/database-constants";
 import { Book } from "./book.entity";
 import { BookCreated } from "./dtos/BookCreated.dto";
+import { Author } from "../author/author.entity";
 
 @Injectable()
 export class BooksService {
@@ -14,8 +15,16 @@ export class BooksService {
     return this.booksRepository.findAll();
   }
 
+  getAllWithAuthors(): Promise<[Book]> {
+    return this.booksRepository.findAll({ include: [Author] });
+  }
+
   getOne(bookId: number): Promise<Book> {
     return this.booksRepository.findByPk(bookId);
+  }
+
+  getOneWithAuthors(bookId: number): Promise<Book> {
+    return this.booksRepository.findByPk(bookId, { include: [Author] });
   }
 
   async create(book: Book): Promise<BookCreated> {

@@ -26,10 +26,21 @@ export class BooksController {
     return this.booksService.getAll();
   }
 
+  @Get("with-authors")
+  async getAllWithAuthors() {
+    return this.booksService.getAllWithAuthors();
+  }
+
   @ApiParam({ name: "bookId" })
   @Get(":bookId")
   async getOne(@Param("bookId") bookId: number) {
     return this.booksService.getOne(bookId);
+  }
+
+  @ApiParam({ name: "bookId" })
+  @Get("with-authors/:bookId")
+  async getOneWithAuthors(@Param("bookId") bookId: number) {
+    return this.booksService.getOneWithAuthors(bookId);
   }
 
   @ApiResponse({
