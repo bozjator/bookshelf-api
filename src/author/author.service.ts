@@ -18,6 +18,10 @@ export class AuthorsService {
     return this.authorsRepository.findAll();
   }
 
+  getAllWithBooks(): Promise<[Author]> {
+    return this.authorsRepository.findAll({ include: [Book] });
+  }
+
   getOne(authorId: number): Promise<Author> {
     return this.authorsRepository.findByPk(authorId);
   }

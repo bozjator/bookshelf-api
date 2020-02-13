@@ -26,6 +26,11 @@ export class AuthorsController {
     return this.authorsService.getAll();
   }
 
+  @Get("with-books")
+  async getAllWithBooks() {
+    return this.authorsService.getAllWithBooks();
+  }
+
   @ApiParam({ name: "authorId" })
   @Get(":authorId")
   async getOne(@Param("authorId") authorId: number) {
