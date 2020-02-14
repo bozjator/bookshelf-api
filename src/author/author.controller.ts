@@ -19,6 +19,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { AuthorsService } from "./author.service";
 import { Author } from "./author.entity";
 import { AuthorCreated } from "./dtos/AuthorCreated.dto";
+import { AuthorWithBooks } from "./dtos/AuthorWithBooks.dto";
 
 @UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
@@ -28,18 +29,30 @@ export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
   @ApiOperation({ summary: "Get all authors without books." })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: [Author]
+  })
   @Get()
   async getAll() {
     return this.authorsService.getAll();
   }
 
   @ApiOperation({ summary: "Get all authors with books." })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: [AuthorWithBooks]
+  })
   @Get("with-books")
   async getAllWithBooks() {
     return this.authorsService.getAllWithBooks();
   }
 
   @ApiOperation({ summary: "Get the author, without books, by author id." })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: Author
+  })
   @ApiParam({ name: "authorId" })
   @Get(":authorId")
   async getOne(@Param("authorId") authorId: number) {
@@ -47,6 +60,10 @@ export class AuthorsController {
   }
 
   @ApiOperation({ summary: "Get the author, with books, by author id." })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: AuthorWithBooks
+  })
   @ApiParam({ name: "authorId" })
   @Get("with-books/:authorId")
   async getOneWithBooks(@Param("authorId") authorId: number) {
