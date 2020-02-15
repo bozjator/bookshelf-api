@@ -3,6 +3,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiTags, ApiBearerAuth, ApiOperation } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
 import { ApiRequest } from "../models/ApiRequest.model";
+import { User } from "./user.entity";
 
 @UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
@@ -13,7 +14,23 @@ export class UsersController {
 
   @ApiOperation({ summary: "Returns currently logged in user data." })
   @Get("me")
-  getCurrentUserData(@Request() req: ApiRequest) {
+  getCurrentUserDataFromRequest(@Request() req: ApiRequest) {
     return req.user;
+  }
+
+  @ApiOperation({
+    summary: "Returns currently logged in user data with more info."
+  })
+  @Get("me-more-info")
+  async getCurrentUserDataFromDB(@Request() req: ApiRequest) {
+    const user: User = <User>(await this.usersService.findOneById(
+      req.user.userId
+    )).get({
+      plain: true
+    });
+    delete user.password;
+    delete user.updatedAt;
+    delete user.createdAt;
+    return user;
   }
 }

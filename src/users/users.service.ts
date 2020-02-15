@@ -10,13 +10,17 @@ export class UsersService {
     private readonly usersRepository: typeof User
   ) {}
 
-  async findOne(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User> {
     const whereParameters = {
       email
     };
     return this.usersRepository.findOne<User>({
       where: whereParameters
     });
+  }
+
+  async findOneById(userId: number): Promise<User> {
+    return this.usersRepository.findByPk(userId);
   }
 
   async findAll(): Promise<User[]> {

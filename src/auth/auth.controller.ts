@@ -74,7 +74,7 @@ export class AuthController {
         .json(errResMsgs.ERROR_REQUIRED_DATA_MISSING);
     }
     // Check if user with this email already exists.
-    const existingUser = await this.usersService.findOne(userReg.email);
+    const existingUser = await this.usersService.findOneByEmail(userReg.email);
     if (existingUser !== null) {
       return res
         .status(errResMsgs.ERROR_USER_ALREADY_EXISTS.statusCode)
