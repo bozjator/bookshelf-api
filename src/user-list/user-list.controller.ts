@@ -81,22 +81,12 @@ export class UserListController {
   @ApiResponse({
     status: HttpStatus.OK
   })
-  @ApiParam({
-    name: "userListTypeId",
-    enum: UserListType,
-    description: UserListTypeDescription
-  })
-  @ApiParam({ name: "bookId" })
-  @Delete("remove/:userListTypeId/:bookId")
+  @ApiParam({ name: "id" })
+  @Delete("remove/:id")
   async removeBookFromUserList(
     @Request() req: ApiRequest,
-    @Param("userListTypeId") listTypeId: number,
-    @Param("bookId") bookId: number
+    @Param("id") id: number
   ) {
-    return this.userListService.removeBookFromUserList(
-      req.user.userId,
-      listTypeId,
-      bookId
-    );
+    return this.userListService.removeBookFromUserList(id);
   }
 }

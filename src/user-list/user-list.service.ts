@@ -31,15 +31,9 @@ export class UserListService {
     });
   }
 
-  removeBookFromUserList(
-    userId: number,
-    userListTypeId: number,
-    bookId: number
-  ) {
+  removeBookFromUserList(id: number) {
     const where = {
-      userId,
-      bookId,
-      userListTypeId
+      id
     };
     return this.userListRepository.destroy({ where });
   }
