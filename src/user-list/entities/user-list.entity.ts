@@ -36,5 +36,5 @@ export class UserList extends Model<UserList> {
   book: Book;
 
   @BelongsTo(() => User)
-  User: Book;
+  user: User;
 }
