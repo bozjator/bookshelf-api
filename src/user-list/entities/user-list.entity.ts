@@ -27,4 +27,7 @@ export class UserList extends Model<UserList> {
 
   @BelongsTo(() => Book)
   book: Book;
+
+  @BelongsTo(() => User)
+  User: Book;
 }
