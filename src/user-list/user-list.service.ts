@@ -30,4 +30,17 @@ export class UserListService {
       include: [{ model: Book, include: [Author] }]
     });
   }
+
+  removeBookFromUserList(
+    userId: number,
+    userListTypeId: number,
+    bookId: number
+  ) {
+    const where = {
+      userId,
+      bookId,
+      userListTypeId
+    };
+    return this.userListRepository.destroy({ where });
+  }
 }

@@ -5,7 +5,8 @@ import {
   UseGuards,
   HttpStatus,
   Post,
-  Param
+  Param,
+  Delete
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import {
@@ -58,7 +59,7 @@ export class UserListController {
   @ApiOperation({ summary: "Get user list with books." })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: [BookWithAuthors]
+    type: [BookWithAuthors] // TODO return type is not correct
   })
   @ApiParam({
     name: "userListTypeId",
@@ -73,6 +74,29 @@ export class UserListController {
     return this.userListService.getUserListWithBooks(
       req.user.userId,
       listTypeId
+    );
+  }
+
+  @ApiOperation({ summary: "Remove book from user list." })
+  @ApiResponse({
+    status: HttpStatus.OK
+  })
+  @ApiParam({
+    name: "userListTypeId",
+    enum: UserListType,
+    description: UserListTypeDescription
+  })
+  @ApiParam({ name: "bookId" })
+  @Delete("remove/:userListTypeId/:bookId")
+  async removeBookFromUserList(
+    @Request() req: ApiRequest,
+    @Param("userListTypeId") listTypeId: number,
+    @Param("bookId") bookId: number
+  ) {
+    return this.userListService.removeBookFromUserList(
+      req.user.userId,
+      listTypeId,
+      bookId
     );
   }
 }
