@@ -3,6 +3,7 @@ import { User } from "../users/user.entity";
 import { Author } from "../author/author.entity";
 import { Book } from "../book/book.entity";
 import { BookAuthor } from "../entities/book-author.entity";
+import { UserList } from "../user-list/entities/user-list.entity";
 import envConfig from "../environment.config";
 
 export const databaseProviders = [
@@ -21,7 +22,7 @@ export const databaseProviders = [
           // raw: true // We can not use this if we want to user include (e.g. include author books)
         }
       });
-      sequelize.addModels([User, Author, Book, BookAuthor]);
+      sequelize.addModels([User, Author, Book, BookAuthor, UserList]);
       await sequelize.sync();
       // To recreate database tables, uncomment this.
       // await sequelize.sync({ force: true }); // Force set to true, will drop all tables and create new ones.
