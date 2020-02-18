@@ -18,11 +18,11 @@ import {
 } from "@nestjs/swagger";
 import { ApiRequest } from "../models/ApiRequest.model";
 import { UserListService } from "./user-list.service";
-import { BookWithAuthors } from "../book/dtos/BookWithAuthors.dto";
 import {
   UserListType,
   UserListTypeDescription
 } from "./entities/user-list-type.enum";
+import { UserListEntry } from "./dtos/user-list.dto";
 
 @UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
@@ -59,7 +59,7 @@ export class UserListController {
   @ApiOperation({ summary: "Get user list with books." })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: [BookWithAuthors] // TODO return type is not correct
+    type: [UserListEntry]
   })
   @ApiParam({
     name: "userListTypeId",
