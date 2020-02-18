@@ -9,7 +9,14 @@ import {
 import { User } from "../../users/user.entity";
 import { Book } from "../../book/book.entity";
 
-@Table
+@Table({
+  indexes: [
+    {
+      name: "secondary_index",
+      fields: ["userListTypeId"]
+    }
+  ]
+})
 export class UserList extends Model<UserList> {
   @ForeignKey(() => User)
   @AllowNull(false)
