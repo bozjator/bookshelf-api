@@ -27,7 +27,7 @@ const allEnvConfigs: ConfigParam[] = [
   {
     evironment: "production",
     app_jwt_secret_key: process.env.APP_JWT_SECRET_KEY,
-    app_port: parseInt(process.env.APP_PORT, 10) || 3000,
+    app_port: parseInt(process.env.PORT, 10) || 3000,
     db_username: process.env.DB_USERNAME,
     db_password: process.env.DB_PASSWORD,
     db_name: process.env.DB_NAME,
