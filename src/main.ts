@@ -1,10 +1,12 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import * as helmet from "helmet";
 import envConfig from "./environment.config";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(helmet());
 
   // This way we add posibility to authenticate through swagger.
   const securitySchemeObject: any = {
