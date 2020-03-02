@@ -8,6 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
 
+  if (envConfig.evironment === "development") {
+    // In development environment allow all origins.
+    app.enableCors({ origin: "*" });
+  }
+
   // This way we add posibility to authenticate through swagger.
   const securitySchemeObject: any = {
     type: "http",
