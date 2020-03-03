@@ -13,10 +13,9 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user: User = <User>(
-      (await this.usersService.findOneByEmail(email)).get({ plain: true })
-    );
-    if (user) {
+    const userNotRaw: User = await this.usersService.findOneByEmail(email);
+    if (userNotRaw) {
+      const user: User = <User>userNotRaw.get({ plain: true });
       if (await bcrypt.compare(pass, user.password)) {
         const { password, ...result } = user;
         return result;
